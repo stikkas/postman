@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cux5-service-postman
+  labels:
+    app: cux5-service-postman
+spec:
+  type: ClusterIP
+  selector:
+    app: cux5-service-postman
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cux5-service-postman
+  labels:
+    app: cux5-service-postman
+spec:
+  selector:
+    matchLabels:
+      app: cux5-service-postman
+  template:
+    metadata:
+      labels:
+        app: cux5-service-postman
+    spec:
+      containers:
+        - name: cux5-service-postman
+          image: cux5-service-postman
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: BPL_JVM_THREAD_COUNT
+              value: "50"
+            - name: APP_TESTDATA_ENABLED
+              value: "true"
+
+

@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  shutdown: graceful
+  netty:
+    connection-timeout: 2s
+    idle-timeout: 15s
+
+spring:
+  main:
+    banner-mode: off
+  r2dbc:
+    username: user
+    password: password
+    url: r2dbc:postgresql://core-postgres/core
+    pool:
+      max-create-connection-time: 2s
+      initial-size: 5
+      max-size: 10

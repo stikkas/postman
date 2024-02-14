@@ -1,0 +1,19 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: cux--service-postman
+build:
+  artifacts:
+    - image: cux5-service-postman
+      jib: {}
+manifests:
+  rawYaml:
+    - k8s/postgresql.yml
+    - k8s/kafka.yml
+    - k8s/postman.yml
+
+portForward:
+  - resourceType: service
+    resourceName: cux5-service-postman
+    port: 80
+    localPort: 8080
